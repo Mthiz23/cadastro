@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Músicas</title>
+    <script>
+        function cadastrarMusica() {
+            const titulo = document.getElementById('title').value;
+            const artista = document.getElementById('artist').value;
+            const genero = document.getElementById('genre').value;
+            const duracao = document.getElementById('duration').value;
+            const link = document.getElementById('link').value;
+
+            const musicList = document.getElementById('musicList');
+            const musicItem = document.createElement('li');
+            
+            // Cria um iframe para o vídeo do YouTube
+            const videoEmbed = `<iframe width="200" height="100" src="${link.replace('watch?v=', 'embed/')}" frameborder="0" allowfullscreen></iframe>`;
+            musicItem.innerHTML = `${titulo} - ${artista} (${genero}, ${duracao} min) ${videoEmbed}`;
+            musicList.appendChild(musicItem);
+
+            // Limpa o formulário após o cadastro
+            document.getElementById('musicForm').reset();
+        }
+    </script>
+</head>
+<body>
+    <h1>Cadastro de Músicas</h1>
+    <form id="musicForm" onsubmit="event.preventDefault(); cadastrarMusica();">
+        <input type="text" id="title" placeholder="Título" required>
+        <input type="text" id="artist" placeholder="Artista" required>
+        <input type="text" id="genre" placeholder="Gênero" required>
+        <input type="number" id="duration" placeholder="Duração (min)" required>
+        <input type="url" id="link" placeholder="Link do YouTube" required>
+        <button type="submit">Cadastrar Música</button>
+    </form>
+
+    <h2>Músicas Cadastradas</h2>
+    <ul id="musicList"></ul>
+</body>
+</html>
